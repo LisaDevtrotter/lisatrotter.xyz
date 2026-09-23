@@ -22,6 +22,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STAGE = "--stage" in sys.argv
@@ -62,6 +63,18 @@ def wrangler() -> list:
     return ["node", best[1]] if best else [shutil.which("npx") or "npx.cmd", "--yes", "wrangler@4"]
 
 
+def ensure_login(tries=4):
+    """refresh the oauth token first: the refresh call sometimes drops on this machine's network,
+    and a deploy that hits an expired token in a non-interactive shell just fails."""
+    for i in range(tries):
+        out = subprocess.run(wrangler() + ["whoami"], capture_output=True, text=True, encoding="utf-8", errors="replace", env=ENV)
+        if "logged in with" in (out.stdout + out.stderr):
+            return True
+        time.sleep(3 * (i + 1))
+    print("wrangler login could not be refreshed; run: set XDG_CONFIG_HOME=%USERPROFILE%\\.devtrotter-cf && npx wrangler login --device")
+    return False
+
+
 def run(tmp, cfg_name, cfg, message):
     with open(os.path.join(tmp, cfg_name), "w", encoding="utf-8") as f:
         json.dump(cfg, f, indent=2)
@@ -74,6 +87,8 @@ def main() -> int:
     if dirty and "--dirty" not in sys.argv:
         print("public files have uncommitted changes; commit first (or pass --dirty):\n" + dirty)
         return 2
+    if not ensure_login():
+        return 4
     tmp = tempfile.mkdtemp(prefix="lisatrotter-deploy-")
     try:
         dst = os.path.join(tmp, "site")
