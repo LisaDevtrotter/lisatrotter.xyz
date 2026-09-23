@@ -1,0 +1,6 @@
+.*
+/tools
+/brand
+/worker
+/wrangler.json*
+*.md

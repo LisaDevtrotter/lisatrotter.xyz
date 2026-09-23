@@ -1,0 +1,18 @@
+<!doctype html>
+<!-- test harness for headless screenshots: /brand/shot.html?sel=%23holes&off=40 scrolls the site in a frame without smooth scrolling -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;height:100%;overflow:hidden}iframe{border:0;width:100%;height:100%;display:block}</style></head>
+<body><iframe id="f" src="../index.html"></iframe>
+<script>
+var q = new URLSearchParams(location.search), f = document.getElementById("f");
+f.onload = function () {
+  var w = f.contentWindow, d = w.document;
+  d.documentElement.style.scrollBehavior = "auto";
+  if (q.get("theme")) d.documentElement.setAttribute("data-theme", q.get("theme"));
+  if (q.get("y1998")) d.documentElement.classList.add("y1998");
+  setTimeout(function () {
+    var el = q.get("sel") ? d.querySelector(q.get("sel")) : null;
+    var y = el ? el.getBoundingClientRect().top + w.scrollY - (+q.get("off") || 0) : (+q.get("y") || 0);
+    w.scrollTo(0, y);
+  }, 400);
+};
+</script></body></html>

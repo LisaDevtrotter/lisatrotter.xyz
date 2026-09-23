@@ -1,0 +1,56 @@
+<!doctype html>
+<!-- link preview image for lisatrotter.xyz, 1200×630:
+     chrome --headless=new --window-size=1200,630 --screenshot=… http://localhost:8137/brand/og.html -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>devtrotter og image</title>
+<style>
+  @font-face { font-family: "Bricolage Grotesque"; font-weight: 200 800; font-stretch: 75% 100%; src: url(../fonts/bricolage-normal-200-800.woff2) format("woff2"); }
+  @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(../fonts/instrument-italic-400.woff2) format("woff2"); }
+  @font-face { font-family: "Space Mono"; src: url(../fonts/spacemono-normal-400.woff2) format("woff2"); }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: #0b0918; }
+  body { position: relative; font-family: "Bricolage Grotesque", sans-serif; color: #f2edff; -webkit-font-smoothing: antialiased; }
+  .glow { position: absolute; inset: 0; background:
+      radial-gradient(700px 520px at 80% 8%, rgba(163, 147, 255, 0.24), transparent 62%),
+      radial-gradient(560px 420px at 0% 0%, rgba(255, 140, 207, 0.14), transparent 60%),
+      radial-gradient(520px 380px at 30% 120%, rgba(142, 243, 209, 0.08), transparent 60%); }
+  #soap { position: absolute; inset: 0; width: 1200px; height: 630px; }
+  .grain { position: absolute; inset: 0; opacity: 0.08;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .meta { position: absolute; left: 64px; top: 56px; margin: 0; font: 17px "Space Mono", monospace; color: #8f87b3; }
+  .meta b { color: #8ef3d1; font-weight: 400; font-size: 12px; vertical-align: 2px; margin-right: 8px; }
+  .wm { position: absolute; left: 50px; top: 118px; margin: 0; font-size: 178px; line-height: 0.8; font-weight: 700; letter-spacing: -0.055em;
+    font-variation-settings: "wght" 660, "wdth" 80, "opsz" 96; white-space: nowrap; }
+  .wm .star { font-size: 0.34em; color: #ff8ccf; display: inline-block; vertical-align: top; transform: translateY(18px) rotate(14deg); text-shadow: 0 0 30px rgba(255, 140, 207, 0.6); }
+  .bio { position: absolute; left: 66px; top: 300px; width: 640px; margin: 0; font-size: 44px; line-height: 1.08; letter-spacing: -0.025em; font-weight: 450;
+    font-variation-settings: "wdth" 90, "opsz" 48; }
+  .iri { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; font-size: 1.14em;
+    background: linear-gradient(100deg, #ff8ccf 0%, #ffd08a 22%, #8ef3d1 45%, #8fd3ff 65%, #a393ff 82%, #ff8ccf 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: 0.05em; }
+  .url { position: absolute; left: 66px; bottom: 56px; margin: 0; font: 20px "Space Mono", monospace; color: #cbc3e8; }
+  .url i { color: #ff8ccf; font-style: normal; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <canvas id="soap"></canvas>
+  <p class="meta"><b>●</b>specimen no. 001 · first sighted 2023·12·11 · france</p>
+  <h1 class="wm">devtrotter<span class="star">✦</span></h1>
+  <p class="bio">curious about crypto, digital art,<br>and the <span class="iri">strange corners</span><br>of the internet.</p>
+  <p class="url">lisatrotter.xyz <i>✦</i> rabbit holes, field notes, onchain without the prices</p>
+  <div class="grain"></div>
+<script>
+  window.DTSoapScale = 2;
+  window.DTSoapLayout = function (W, H) {
+    return {
+      b0: [W * 0.79, H * 0.5, H * 0.36],
+      b1: [W * 0.93, H * 0.86, H * 0.07],
+      b2: [W * 0.6, H * 0.18, H * 0.045],
+      b3: [W * 0.66, H * 0.9, H * 0.03]
+    };
+  };
+</script>
+<script src="../js/soap.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<!-- the x header for @devtrotter_fr, 1500×500. rendered with headless chrome:
+     chrome --headless=new --window-size=1500,500 --force-device-scale-factor=2 --screenshot=… http://localhost:8137/brand/x-banner.html
+     keep the lower-left corner quiet: the profile photo sits there on x. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>devtrotter x banner</title>
+<style>
+  @font-face { font-family: "Bricolage Grotesque"; font-weight: 200 800; font-stretch: 75% 100%; src: url(../fonts/bricolage-normal-200-800.woff2) format("woff2"); }
+  @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(../fonts/instrument-italic-400.woff2) format("woff2"); }
+  @font-face { font-family: "Space Mono"; src: url(../fonts/spacemono-normal-400.woff2) format("woff2"); }
+  :root { --bg: #0b0918; --ink: #f2edff; --ink-2: #cbc3e8; --muted: #8f87b3; --pink: #ff8ccf; --violet: #a393ff; --mint: #8ef3d1; --amber: #ffd08a; --sky: #8fd3ff; }
+  html, body { margin: 0; width: 1500px; height: 500px; overflow: hidden; background: var(--bg); }
+  body { position: relative; font-family: "Bricolage Grotesque", sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .glow { position: absolute; inset: 0; background:
+      radial-gradient(760px 520px at 78% 10%, rgba(163, 147, 255, 0.22), transparent 62%),
+      radial-gradient(620px 420px at 0% 0%, rgba(255, 140, 207, 0.13), transparent 60%),
+      radial-gradient(520px 380px at 40% 120%, rgba(142, 243, 209, 0.08), transparent 60%); }
+  #soap { position: absolute; inset: 0; width: 1500px; height: 500px; }
+  .grain { position: absolute; inset: 0; opacity: 0.08; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .meta { position: absolute; left: 78px; top: 36px; font: 15px "Space Mono", monospace; color: var(--muted); letter-spacing: 0.02em; }
+  .meta b { color: var(--mint); font-weight: 400; font-size: 11px; vertical-align: 2px; margin-right: 8px; }
+  .wm { position: absolute; left: 62px; top: 80px; margin: 0; font-size: 184px; line-height: 0.8; font-weight: 700; letter-spacing: -0.055em;
+    font-variation-settings: "wght" 660, "wdth" 80, "opsz" 96; white-space: nowrap; }
+  .wm .lean { display: inline-block; font-variation-settings: "wght" 800, "wdth" 96, "opsz" 96; transform: translateY(-8px) rotate(-3deg); }
+  .wm .star { font-size: 0.34em; color: var(--pink); display: inline-block; margin: 0 0 0.6em 0.1em; vertical-align: top; transform: translateY(20px) rotate(14deg);
+    text-shadow: 0 0 30px rgba(255, 140, 207, 0.6); }
+  .bio { position: absolute; left: 80px; top: 236px; width: 760px; margin: 0; font-size: 36px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 450;
+    font-variation-settings: "wdth" 90, "opsz" 48; }
+  .iri { position: relative; font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; font-size: 1.14em;
+    background: linear-gradient(100deg, #ff8ccf 0%, #ffd08a 22%, #8ef3d1 45%, #8fd3ff 65%, #a393ff 82%, #ff8ccf 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: 0.05em; }
+  .iri svg { position: absolute; left: -2%; bottom: -0.14em; width: 104%; height: 0.32em; overflow: visible; }
+  .chips { position: absolute; left: 430px; top: 372px; display: flex; align-items: center; gap: 10px; }
+  .chips .label { font: 14px "Space Mono", monospace; color: var(--ink-2); margin-right: 6px; }
+  .chips .label i { color: var(--pink); font-style: normal; }
+  .chip { font-size: 19px; font-weight: 500; padding: 7px 16px 9px; border-radius: 99px; border: 1.5px solid; letter-spacing: -0.01em; }
+  .c1 { border-color: rgba(255, 140, 207, 0.6); background: rgba(255, 140, 207, 0.1); transform: rotate(-2deg); }
+  .c2 { border-color: rgba(163, 147, 255, 0.6); background: rgba(163, 147, 255, 0.1); transform: rotate(1.5deg); }
+  .c3 { border-color: rgba(142, 243, 209, 0.6); background: rgba(142, 243, 209, 0.1); transform: rotate(-1deg); }
+  .label-card { position: absolute; right: 64px; top: 262px; width: 300px; background: #efe8d8; color: #1d1932; padding: 18px 18px 12px; border-radius: 3px;
+    transform: rotate(2.4deg); box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.75); font: 12.5px/1.45 "Space Mono", monospace; }
+  .label-card::before { content: ""; position: absolute; top: -11px; left: 50%; width: 84px; height: 22px; transform: translateX(-50%) rotate(-3deg);
+    background: rgba(255, 190, 225, 0.75); }
+  .label-card .t { margin: 0 0 10px; font: 700 22px/1 "Bricolage Grotesque", sans-serif; letter-spacing: -0.02em; font-variation-settings: "wdth" 85;
+    border-bottom: 1.5px solid #1d1932; padding-bottom: 8px; }
+  .label-card .t span { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; }
+  .label-card dl { margin: 0; display: grid; gap: 3px; }
+  .label-card dl div { display: grid; grid-template-columns: 78px 1fr; gap: 6px; }
+  .label-card dt { opacity: 0.55; white-space: nowrap; overflow: hidden; }
+  .label-card dt::after { content: " ..................."; opacity: 0.6; }
+  .label-card dd { margin: 0; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #0b8663; margin-right: 6px; box-shadow: 0 0 0 4px rgba(11, 134, 99, 0.18); }
+  .gm { position: absolute; left: 1010px; top: 404px; background: #8ef3d1; color: #0b3d2e; border: 3px solid #fff; border-radius: 99px; padding: 6px 16px 8px;
+    font: 700 22px "Space Mono", monospace; transform: rotate(-9deg); box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.6); }
+  .corner { position: absolute; right: 64px; top: 36px; font: 15px "Space Mono", monospace; color: var(--muted); }
+  .corner i { color: var(--pink); font-style: normal; }
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <canvas id="soap"></canvas>
+
+  <p class="meta"><b>●</b>specimen no. 001 · first sighted 2023·12·11 · france</p>
+  <p class="corner">rabbit holes <i>✦</i> field notes <i>✦</i> onchain, without the prices</p>
+  <h1 class="wm">devtrott<span class="lean">e</span>r<span class="star">✦</span></h1>
+  <p class="bio">curious about crypto, digital art,<br>and the <span class="iri">strange corners<svg viewBox="0 0 200 14" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff8ccf"/><stop offset=".3" stop-color="#ffd08a"/><stop offset=".55" stop-color="#8ef3d1"/><stop offset=".8" stop-color="#8fd3ff"/><stop offset="1" stop-color="#a393ff"/></linearGradient></defs><path d="M2 9 C 30 3, 60 12, 95 7 S 160 3, 198 8" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span> of the internet.</p>
+
+  <div class="chips"><span class="label">currently exploring <i>→</i></span><span class="chip c1">crypto</span><span class="chip c2">digital art</span><span class="chip c3">internet culture</span></div>
+
+  <div class="label-card">
+    <p class="t">devtrotter <span>(lisa)</span></p>
+    <dl>
+      <div><dt>genus</dt><dd>homo curiosus</dd></div>
+      <div><dt>origin</dt><dd>france</dd></div>
+      <div><dt>habitat</dt><dd>browser tabs, old forums</dd></div>
+      <div><dt>status</dt><dd><span class="dot"></span>exploring</dd></div>
+    </dl>
+  </div>
+  <div class="gm">gm</div>
+  <div class="grain"></div>
+
+<script>
+  // bubble positions for a 1500×500 header (gl y axis points up)
+  window.DTSoapScale = 2;
+  window.DTSoapLayout = function (W, H, t, s) {
+    return {
+      b0: [W * 0.66, H * 0.52, H * 0.43],
+      b1: [W * 0.955, H * 0.6, H * 0.075],
+      b2: [W * 0.505, H * 0.2, H * 0.05],
+      b3: [W * 0.885, H * 0.12, H * 0.034]
+    };
+  };
+</script>
+<script src="../js/soap.js"></script>
+</body>
+</html>
