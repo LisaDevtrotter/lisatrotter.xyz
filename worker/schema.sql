@@ -1,17 +1,14 @@
 -- visit log for lisatrotter.xyz (cloudflare d1 "lisatrotter-visits"). one row per page view that a browser
 -- actually showed (js/visit.js reports it). no ip address or anything derived from one, no cookies,
--- no full user-agent. rows older than 90 days are deleted by the worker's nightly cron.
+-- no full user-agent, and deliberately no region, city or network — country is the finest location kept.
+-- rows older than 90 days are deleted by the worker's nightly cron.
 CREATE TABLE IF NOT EXISTS visits (
   id       TEXT PRIMARY KEY,          -- random per page view, made up by the page, ties hit and engagement together
   ts       TEXT NOT NULL,             -- utc, 'YYYY-MM-DD HH:MM:SS'
   path     TEXT NOT NULL,
   via      TEXT,                      -- channel tag from a short link: x, fc, mail, gh
   ref      TEXT,                      -- referrer host only
-  country  TEXT,
-  region   TEXT,
-  city     TEXT,
-  asn      INTEGER,
-  org      TEXT,                      -- as organisation (provider or company network)
+  country  TEXT,                      -- coarse country code only; no region, city or network is stored
   device   TEXT,                      -- browser family and os, e.g. 'chrome · windows'; no versions
   lang     TEXT,                      -- primary accept-language tag
   bot      INTEGER NOT NULL DEFAULT 0,
@@ -20,3 +17,11 @@ CREATE TABLE IF NOT EXISTS visits (
   seen     TEXT                       -- sections that crossed the middle of the screen, comma separated
 );
 CREATE INDEX IF NOT EXISTS visits_ts ON visits (ts);
+
+-- Migrating an existing database created before region/city/asn/org were dropped?
+-- SQLite keeps the old columns; they simply stop being written. To reclaim them:
+--   ALTER TABLE visits DROP COLUMN region;
+--   ALTER TABLE visits DROP COLUMN city;
+--   ALTER TABLE visits DROP COLUMN asn;
+--   ALTER TABLE visits DROP COLUMN org;
+-- (Run once, against the remote D1, after deploying the updated worker.)

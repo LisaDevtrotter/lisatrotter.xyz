@@ -1,11 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff8ccf"/><stop offset=".3" stop-color="#ffd08a"/><stop offset=".55" stop-color="#8ef3d1"/><stop offset=".78" stop-color="#8fd3ff"/><stop offset="1" stop-color="#a393ff"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#0b0918"/>
-  <circle cx="32" cy="32" r="21" fill="none" stroke="url(#g)" stroke-width="4"/>
-  <ellipse cx="24" cy="22" rx="6" ry="3.4" fill="#fff" opacity=".85" transform="rotate(-40 24 22)"/>
-  <path d="M32 24 L34.2 29.8 L40 32 L34.2 34.2 L32 40 L29.8 34.2 L24 32 L29.8 29.8 Z" fill="#ff8ccf"/>
+  <rect width="64" height="64" rx="15" fill="#101010"/>
+  <rect x="2.5" y="2.5" width="59" height="59" rx="13" fill="none" stroke="#f5f4f0" stroke-opacity="0.18" stroke-width="1"/>
+  <g fill="#f5f4f0" font-family="'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif">
+    <text x="32" y="43" text-anchor="middle" font-size="30" font-weight="700" letter-spacing="-1">LT</text>
+  </g>
 </svg>

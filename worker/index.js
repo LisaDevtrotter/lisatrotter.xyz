@@ -4,9 +4,10 @@
 //   POST /api/v           the page reports, when it is hidden: visible seconds, deepest point, sections seen
 // and once a night (cron) deletes log entries older than KEEP_DAYS.
 //
-// what a log row holds: time, path, channel tag, referrer host, country/region/city, network (asn + org),
+// what a log row holds: time, path, channel tag, referrer host, country (coarse, nothing finer),
 // browser family ("chrome · windows"), primary language, a bot flag, and the engagement numbers.
-// no ip address, nothing derived from one, no cookies, no full user-agent string.
+// deliberately NOT stored: region, city, network/asn, ip address or anything derived from one,
+// cookies, or the full user-agent string. country stays for a rough sense of audience only.
 
 const TAGS = Object.freeze({ x: "x", fc: "fc", mail: "mail", gh: "gh" });
 const KEEP_DAYS = 90;
@@ -61,10 +62,10 @@ async function hit(env, request, url, data) {
   const path = typeof data.path === "string" && data.path.startsWith("/") ? data.path.slice(0, 200) : "/";
   const via = typeof data.via === "string" && Object.hasOwn(TAGS, data.via) ? TAGS[data.via] : null;
   await env.DB.prepare(
-    "INSERT OR IGNORE INTO visits (id, ts, path, via, ref, country, region, city, asn, org, device, lang, bot) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, ?13)"
+    "INSERT OR IGNORE INTO visits (id, ts, path, via, ref, country, device, lang, bot) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9)"
   ).bind(
     data.id, stamp(new Date()), path, via, refHost(data.ref, url.hostname),
-    cf.country || null, cf.region || null, cf.city || null, cf.asn || null, (cf.asOrganization || "").slice(0, 120) || null,
+    cf.country || null,
     device(ua), lang, !ua || BOT_RE.test(ua) || isHeadless(request) ? 1 : 0
   ).run();
 }

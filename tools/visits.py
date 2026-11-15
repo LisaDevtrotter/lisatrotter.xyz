@@ -4,7 +4,7 @@ usage:
   python tools/visits.py                 last 30 human page views (paris time)
   python tools/visits.py --last 100      more rows
   python tools/visits.py --bots          include crawlers and link previewers
-  python tools/visits.py --summary       per-day views and unique visitors, channels, referrers, countries, networks
+  python tools/visits.py --summary       per-day views and unique visitors, channels, referrers, countries, languages
   python tools/visits.py --summary --days 7
   python tools/visits.py --sql "SELECT ..."   any read query
 
@@ -31,17 +31,6 @@ def paris(t: dt.datetime) -> dt.datetime:
         return d - dt.timedelta(days=(d.weekday() + 1) % 7)
     off = 2 if last_sunday(3) <= t < last_sunday(10) else 1
     return t.astimezone(dt.timezone(dt.timedelta(hours=off)))
-# networks of hosting / cloud / proxy providers: scanners and preview fetchers, rarely a person at a keyboard.
-# a new domain gets these within minutes of its tls certificate showing up in the certificate transparency logs.
-DC_RE = re.compile(r"amazon|google llc|microsoft|linode|akamai|digitalocean|ovh|hetzner|contabo|vultr|choopa|oracle|alibaba|tencent|"
-                   r"leaseweb|m247|datacamp|cdn77|code200|serverhosting|hostinger|ionos|scaleway|colocrossing|blatant|bl networks|"
-                   r"aventice|hos-\d+|cloudflare|fastly|zscaler|psychz|quadranet|hosting|data ?cent|cloud|vps|proxy", re.I)
-
-
-def is_dc(org) -> bool:
-    return bool(org) and bool(DC_RE.search(org))
-
-
 def wrangler() -> list:
     best = None
     for pj in glob.glob(os.path.join(os.environ.get("LOCALAPPDATA", ""), "npm-cache", "_npx", "*", "node_modules", "wrangler", "package.json")):
@@ -90,33 +79,28 @@ def local(ts: str) -> str:
 
 def rows(n: int, bots: bool) -> None:
     where = "" if bots else "WHERE bot = 0"
-    res = query(f"SELECT ts, path, via, ref, country, city, org, device, lang, bot, secs, depth, seen FROM visits {where} ORDER BY ts DESC LIMIT {int(n) * (1 if bots else 4)}")
-    if not bots:
-        res = [r for r in res if not is_dc(r["org"])][: int(n)]
+    res = query(f"SELECT ts, path, via, ref, country, device, lang, bot, secs, depth, seen FROM visits {where} ORDER BY ts DESC LIMIT {int(n)}")
     if not res:
-        print("no visits yet" + ("" if bots else " from people (--bots also shows crawlers and data-centre networks)"))
+        print("no visits yet" + ("" if bots else " from people (--bots also shows crawlers and link previewers)"))
         return
     for r in res:
-        place = ", ".join(x for x in [r["city"], r["country"]] if x)
+        place = r["country"] or "-"
         came = "via " + r["via"] if r["via"] else (r["ref"] or "direct")
         eng = f'{r["secs"]}s, {r["depth"]}m' if r["secs"] is not None else ""
-        flag = " [bot]" if r["bot"] else (" [dc]" if is_dc(r["org"]) else "")
-        print(f'{local(r["ts"])}  {r["path"]:<10} {came:<18} {place:<28} {(r["org"] or "")[:26]:<26} {(r["device"] or "?"):<18} {r["lang"] or "-":<3} {eng}{flag}')
+        flag = " [bot]" if r["bot"] else ""
+        print(f'{local(r["ts"])}  {r["path"]:<10} {came:<18} {place:<4} {(r["device"] or "?"):<18} {r["lang"] or "-":<3} {eng}{flag}')
 
 
 def summary(days: int) -> None:
     since = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=days)).strftime("%Y-%m-%d %H:%M:%S")
-    orgs = query(f"SELECT DISTINCT org FROM visits WHERE ts >= '{since}' AND org IS NOT NULL")
-    dc = [r["org"].replace("'", "''") for r in orgs if is_dc(r["org"])]
-    dc_list = ",".join(f"'{o}'" for o in dc)
-    dc_sql = f" AND (org IS NULL OR org NOT IN ({dc_list}))" if dc else ""
-    base = f"FROM visits WHERE bot = 0 AND ts >= '{since}'{dc_sql}"
-    print(f"last {days} days, people only (bots and data-centre networks left out)\n")
+    base = f"FROM visits WHERE bot = 0 AND ts >= '{since}'"
+    print(f"last {days} days, people only (bots and link previews left out)\n")
     print("day         views  ~visitors  avg secs  avg depth")
-    # no visitor ids exist; "visitors" = distinct browser family + network + city + language per day, an estimate
-    for r in query(f"SELECT substr(ts,1,10) AS d, COUNT(*) AS v, COUNT(DISTINCT COALESCE(device,'') || '|' || COALESCE(org,'') || '|' || COALESCE(city,'') || '|' || COALESCE(lang,'')) AS u, ROUND(AVG(secs)) AS s, ROUND(AVG(depth)) AS dp {base} GROUP BY d ORDER BY d DESC"):
+    # no visitor ids exist; "visitors" = distinct country + browser family + language per day, a rough estimate.
+    # (coarser than before by design — city and network are no longer stored.)
+    for r in query(f"SELECT substr(ts,1,10) AS d, COUNT(*) AS v, COUNT(DISTINCT COALESCE(country,'') || '|' || COALESCE(device,'') || '|' || COALESCE(lang,'')) AS u, ROUND(AVG(secs)) AS s, ROUND(AVG(depth)) AS dp {base} GROUP BY d ORDER BY d DESC"):
         print(f'{r["d"]}  {r["v"]:>5}  {r["u"]:>9}  {r["s"] if r["s"] is not None else "-":>8}  {r["dp"] if r["dp"] is not None else "-":>9}')
-    for title, col in [("channels (short links)", "via"), ("referrers", "ref"), ("countries", "country"), ("networks", "org"), ("languages", "lang")]:
+    for title, col in [("channels (short links)", "via"), ("referrers", "ref"), ("countries", "country"), ("languages", "lang")]:
         res = query(f"SELECT COALESCE({col}, '-') AS k, COUNT(*) AS n {base} GROUP BY k ORDER BY n DESC LIMIT 12")
         print(f"\n{title}: " + ", ".join(f'{r["k"]} {r["n"]}' for r in res))
     seen = query(f"SELECT seen {base} AND seen IS NOT NULL")
@@ -128,8 +112,7 @@ def summary(days: int) -> None:
     if counts:
         print("\nsections reached: " + ", ".join(f"{k} {v}" for k, v in sorted(counts.items(), key=lambda kv: -kv[1])))
     b = query(f"SELECT COUNT(*) AS n FROM visits WHERE bot = 1 AND ts >= '{since}'")
-    d = query(f"SELECT COUNT(*) AS n FROM visits WHERE bot = 0 AND ts >= '{since}' AND org IN ({dc_list})") if dc else [{"n": 0}]
-    print(f"\nbots and link previews: {b[0]['n']} · data-centre networks: {d[0]['n']}")
+    print(f"\nbots and link previews: {b[0]['n']}")
 
 
 def main() -> int:

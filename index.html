@@ -1,653 +1,314 @@
 <!doctype html>
 <!--
-
-        .    *        ✦            .          o
-     o        .   ___________              .       O
-        .        |  devtrotter |      o
-   ✦        o    |  ✦ lisa     |  .        ✦          .
-      .          |_____________|       O         o
-          O          (  )    .              .
-     .           o    ()        ✦      .         *
-
-   hello, source reader.
-   everything here is written by hand and commented where it matters.
-   the bubbles are js/bubbles.js, the big one is a shader in js/soap.js,
-   the little pictures in the archive are js/specimens.js.
-   take whatever is useful.
-
+   lisatrotter.xyz · a personal site, written by hand.
+   no framework, no build step, no third-party scripts. semantic html,
+   one stylesheet, a little javascript. the visit log and the short links
+   live in worker/. take whatever is useful.
 -->
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>devtrotter ✦ lisa</title>
-<meta name="description" content="lisa, a french web developer. curious about crypto, digital art, and the strange corners of the internet.">
-<meta name="author" content="lisa (devtrotter)">
+<title>Lisa Trotter — Talent &amp; Partnerships in Crypto &amp; Web3</title>
+<meta name="description" content="Lisa Trotter. Talent, people and partnerships across crypto, Web3 and venture. A personal site — find me on Telegram and X.">
+<meta name="author" content="Lisa Trotter">
 <meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0c0a1a" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f5f1ea" media="(prefers-color-scheme: light)">
-<meta property="og:type" content="website">
-<meta property="og:title" content="devtrotter ✦ lisa">
-<meta property="og:description" content="curious about crypto, digital art, and the strange corners of the internet.">
+<meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Lisa Trotter — Talent &amp; Partnerships">
+<meta property="og:description" content="Talent, people and partnerships across crypto, Web3 and venture. A personal site.">
 <meta property="og:image" content="https://lisatrotter.xyz/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://lisatrotter.xyz/">
-<meta name="twitter:image" content="https://lisatrotter.xyz/img/og.png">
+<meta property="profile:first_name" content="Lisa">
+<meta property="profile:last_name" content="Trotter">
+
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lisa Trotter — Talent &amp; Partnerships">
+<meta name="twitter:description" content="Talent, people and partnerships across crypto, Web3 and venture.">
+<meta name="twitter:image" content="https://lisatrotter.xyz/img/og.png">
+<meta name="twitter:site" content="@trotterlisafr">
+<meta name="twitter:creator" content="@trotterlisafr">
+
 <link rel="canonical" href="https://lisatrotter.xyz/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="me" href="https://x.com/devtrotter_fr">
+<link rel="me" href="https://x.com/trotterlisafr">
+<link rel="me" href="https://t.me/trotterlisafr">
 <link rel="me" href="https://github.com/LisaDevtrotter">
+
 <link rel="preload" href="fonts/bricolage-normal-200-800.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/spacemono-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-normal-400.woff2" as="font" type="font/woff2" crossorigin>
 <script src="js/theme.js"></script>
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/extras.css">
-<script src="js/bubbles.js" defer></script>
-<script src="js/soap.js" defer></script>
-<script src="js/specimens.js" defer></script>
-<script src="js/toys.js" defer></script>
 <script src="js/main.js" defer></script>
-<script src="js/extras.js" defer></script>
 <script src="js/visit.js" defer></script>
-<!-- analytics:beacon -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Lisa Trotter",
+  "url": "https://lisatrotter.xyz/",
+  "description": "Talent, people and partnerships across crypto, Web3 and venture.",
+  "knowsAbout": ["Talent Acquisition", "People & Partnerships", "Crypto", "Web3", "Venture Capital", "Emerging Technology"],
+  "sameAs": [
+    "https://x.com/trotterlisafr",
+    "https://t.me/trotterlisafr",
+    "https://github.com/LisaDevtrotter"
+  ]
+}
+</script>
 </head>
 <body>
-<a class="skip" href="#holes">skip to the rabbit holes</a>
-
-<canvas id="bubbles" aria-hidden="true"></canvas>
-<div class="grain" aria-hidden="true"></div>
-<div class="gridlines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<div class="ring" aria-hidden="true"><span class="ring-label"></span></div>
+<a class="skip" href="#about">Skip to content</a>
 
 <header class="top" id="top-bar">
-  <a class="brand" href="#top" aria-label="devtrotter, back to the top">devtrotter<span class="brand-star" aria-hidden="true">✦</span></a>
-  <nav class="nav" aria-label="sections">
-    <a href="#holes">holes</a>
-    <a href="#finds">finds</a>
-    <a href="#archive">archive</a>
-    <a href="#onchain">onchain</a>
-    <a href="#notes">notes</a>
-    <a href="#about">about</a>
-  </nav>
-  <div class="controls">
-    <button class="ctl" id="bubble-toggle" type="button" aria-pressed="true" title="bubbles on or off (b blows more)"><span class="ctl-bubble" aria-hidden="true"></span><span class="sr">bubbles</span></button>
-    <button class="ctl" id="theme-toggle" type="button" title="day or night (t)"><span class="ctl-theme" aria-hidden="true"></span><span class="sr">switch theme</span></button>
-    <button class="ctl ctl-menu" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">menu</button>
+  <div class="wrap top-inner">
+    <a class="brand" href="#top" aria-label="Lisa Trotter — top of page">
+      <span class="brand-mark" aria-hidden="true">LT</span>
+      <span class="brand-name">Lisa Trotter</span>
+    </a>
+    <nav class="nav" id="menu" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#work">Focus</a>
+      <a href="#ecosystems">Ecosystems</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="https://t.me/trotterlisafr" target="_blank" rel="me noopener">Telegram</a>
+    </nav>
+    <div class="controls">
+      <button class="ctl" id="theme-toggle" type="button" title="Switch theme">
+        <span class="ctl-ico" aria-hidden="true"></span><span class="sr">Switch theme</span>
+      </button>
+      <button class="ctl ctl-menu" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
+        <span class="sr">Menu</span><span class="burger" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </header>
 
-<div class="menu" id="menu" hidden>
-  <nav aria-label="menu">
-    <a href="#holes"><span class="mono">01</span>rabbit holes</a>
-    <a href="#finds"><span class="mono">02</span>found &amp; made</a>
-    <a href="#archive"><span class="mono">03</span>visual archive</a>
-    <a href="#onchain"><span class="mono">04</span>onchain</a>
-    <a href="#notes"><span class="mono">05</span>field notes</a>
-    <a href="#about"><span class="mono">06</span>about</a>
-  </nav>
-</div>
-
 <main id="top">
 
-<!-- ============ surface ============ -->
-<section class="hero" data-zone="the surface web" aria-labelledby="wm">
-  <canvas id="soap" aria-hidden="true"></canvas>
-  <div class="hero-fallback" aria-hidden="true"></div>
-
-  <p class="hero-meta mono"><span class="blink" aria-hidden="true">●</span> specimen no. 001 · first sighted 2023·12·11 · france</p>
-
-  <h1 class="wordmark" id="wm" aria-label="devtrotter">
-    <span class="wm-row" aria-hidden="true"><span class="l">d</span><span class="l">e</span><span class="l">v</span><span class="l">t</span><span class="l">r</span><span class="l">o</span><span class="l">t</span><span class="l">t</span><span class="l">e</span><span class="l">r</span><span class="wm-star">✦</span></span>
-  </h1>
-
-  <div class="hero-copy">
-    <p class="bio">curious about crypto, digital art, and the <em class="iri">strange corners</em> of the internet.</p>
-    <p class="bio-fr" lang="fr"><span class="mono">fr</span> curieuse de crypto, d’art numérique et des recoins étranges d’internet ✦</p>
-
-    <div class="exploring">
-      <p class="mono label">currently exploring <span class="arrow">→</span></p>
-      <ul class="chips">
-        <li><button class="chip c1" type="button" data-note="the mechanisms, and what people do once real money sits on top of them. i leave the charts to others.">crypto</button></li>
-        <li><button class="chip c2" type="button" data-note="code that draws pictures, and the artists who wrote the rules on paper decades before anyone minted them.">digital art</button></li>
-        <li><button class="chip c3" type="button" data-note="small forums and old personal pages, plus the people who pay the hosting bill for them year after year.">internet culture</button></li>
-        <li><button class="chip c4" type="button" data-note="sites where someone made an odd choice and kept it. i made a few here, like the letters that lean towards your cursor.">experimental interfaces</button></li>
-        <li><button class="chip c5" type="button" data-note="your name, your keys, your followers. in most apps a company holds them for you, and i like to read the terms of that deal.">privacy &amp; identity</button></li>
-      </ul>
-      <p class="chip-note" id="chip-note" aria-live="polite">tap a topic</p>
-    </div>
-  </div>
-
-  <aside class="specimen-label" aria-label="field guide entry">
-    <p class="sl-title">devtrotter <span>(lisa)</span></p>
-    <dl>
-      <div><dt>genus</dt><dd>homo curiosus</dd></div>
-      <div><dt>origin</dt><dd>france</dd></div>
-      <div><dt>habitat</dt><dd>browser tabs, block explorers</dd></div>
-      <div><dt>diet</dt><dd>rabbit holes, footnotes, old forums</dd></div>
-      <div><dt>behaviour</dt><dd>reads the fine print. asks one more question.</dd></div>
-      <div><dt>status</dt><dd><span class="pulse" aria-hidden="true"></span>exploring</dd></div>
-    </dl>
-    <p class="sl-foot mono">fig. 1 · sightings peak after 22:00</p>
-  </aside>
-
-  <p class="field mono">france <b id="clock">--:--</b> <span class="sep">·</span> <span id="daypart">awake</span> <span class="sep">·</span> tabs open: too many <span class="sep">·</span> holes in progress: 1</p>
-
-  <a class="dive" href="#holes"><span class="dive-bubble" aria-hidden="true"></span><span>scroll to go deeper</span></a>
-</section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>rabbit holes ✦ onchain curiosities ✦ digital art ✦ the small web ✦ old websites ✦ experimental interfaces ✦ field notes ✦ strange corners ✦ </span>
-    <span>rabbit holes ✦ onchain curiosities ✦ digital art ✦ the small web ✦ old websites ✦ experimental interfaces ✦ field notes ✦ strange corners ✦ </span>
-  </div>
-</div>
-
-<!-- ============ 01 rabbit holes ============ -->
-<section id="holes" class="sec holes" data-zone="rabbit holes">
-  <header class="sec-head">
-    <span class="sec-num mono">01 / depth 120 m</span>
-    <h2 class="scramble">recent rabbit holes</h2>
-    <p class="sec-sub">one tab leads to twenty more. each card shows the trail and the page i stopped on. open a trail and follow it yourself.</p>
-  </header>
-
-  <div class="holes-grid">
-
-    <article class="hole h1" id="hole-017">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 017</span><span>sep 2026</span></p>
-      <h3>a receipt for nothing, and gold in the seine</h3>
-      <ol class="trail">
-        <li>yves klein</li><li>immaterial zones</li><li>the receipt ritual</li><li>a 2017 remake</li><li>burn addresses</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="23"></span>23 tabs · 1 h 40</p>
-      <p class="ended"><span class="mono">ended</span> at an address ending in <code>dEaD</code></p>
-      <p class="stayed">the earliest thing i’d call an nft came with no image, and the full version of the sale ended in a fire. i’d like to know how klein’s buyers felt, walking home with empty hands.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="https://en.wikipedia.org/wiki/Yves_Klein" target="_blank" rel="noopener noreferrer">yves klein</a> a painter famous for one shade of blue. this story has no paint in it.</li>
-          <li><a href="https://en.wikipedia.org/wiki/Zone_de_Sensibilit%C3%A9_Picturale_Immat%C3%A9rielle" target="_blank" rel="noopener noreferrer">zones of immaterial pictorial sensibility</a> 1959. you paid klein in gold, and he wrote you a receipt for an empty zone.</li>
-          <li>the ritual. if you wanted the complete work, you burned the receipt and klein threw half the gold into the seine.</li>
-          <li>2017. mitchell f. chan rebuilds the idea on ethereum, receipts included.</li>
-          <li>burn addresses. you send tokens to an address with no known key, and they stay there. klein ran the same idea on a river, sixty years earlier.</li>
-        </ol>
-      </details>
-    </article>
-
-    <article class="hole h2" id="hole-016">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 016</span><span>sep 2026</span></p>
-      <h3>a million pixels at a dollar each</h3>
-      <ol class="trail">
-        <li>milliondollarhomepage</li><li>pixel ads</li><li>dead links</li><li>r/place</li><li>basepaint</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="31"></span>31 tabs · 2 h 05</p>
-      <p class="ended"><span class="mono">ended</span> on today’s basepaint canvas, with the brush open and no plan.</p>
-      <p class="stayed">the buyers kept their squares, and a lot of them let the domain behind the square expire. i clicked along one row and stopped counting the dead links halfway.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="https://milliondollarhomepage.com/" target="_blank" rel="noopener noreferrer">the million dollar homepage</a> 2005. alex tew, a student in england, sells a million pixels at a dollar each to pay for university.</li>
-          <li><a href="https://en.wikipedia.org/wiki/The_Million_Dollar_Homepage" target="_blank" rel="noopener noreferrer">the story</a> in january 2006 tew auctioned the last thousand pixels on ebay. you can visit the page today, frozen at that moment.</li>
-          <li>dead links. click around and you land on expired domains, parked pages, and the odd shop that made it.</li>
-          <li>r/place, 2017. for three days, each reddit user could place one pixel, then wait five to twenty minutes. you get flags, and strangers negotiating treaties over border feuds.</li>
-          <li><a href="https://basepaint.xyz/" target="_blank" rel="noopener noreferrer">basepaint</a> a new shared canvas each day. strangers paint it together, then collectors mint the result as one piece.</li>
-        </ol>
-      </details>
-    </article>
-
-    <article class="hole h3" id="hole-015">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 015</span><span>sep 2026</span></p>
-      <h3>algorithms without a computer</h3>
-      <ol class="trail">
-        <li>vera molnár</li><li>machine imaginaire</li><li>1968</li><li>georg nees, 1965</li><li>art blocks</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="18"></span>18 tabs · 1 h 10</p>
-      <p class="ended"><span class="mono">ended</span> rereading <i>(des)ordres</i> and measuring how far each square drifts from straight.</p>
-      <p class="stayed">she wrote algorithms for nine years before a computer ran one of them. i think of her when a client asks for a framework before we’ve talked about the problem.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="https://en.wikipedia.org/wiki/Vera_Moln%C3%A1r" target="_blank" rel="noopener noreferrer">vera molnár</a> born in hungary, based in paris from 1947, one of the first artists to make work with computers.</li>
-          <li>machine imaginaire. from 1959 she ran algorithms by hand, following simple rules on paper, step by step.</li>
-          <li>1968. she gets access to a real computer. by then she has nine years of rules ready to run.</li>
-          <li><a href="https://en.wikipedia.org/wiki/Georg_Nees" target="_blank" rel="noopener noreferrer">georg nees</a> stuttgart, february 1965, one of the first shows of computer drawings. some of the artists who came did not accept it as art.</li>
-          <li><a href="https://www.artblocks.io/" target="_blank" rel="noopener noreferrer">art blocks</a> the artist writes a script, and your mint runs it to make a new output. molnár’s method, plus a wallet.</li>
-        </ol>
-      </details>
-    </article>
-
-    <article class="hole h4" id="hole-014">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 014</span><span>sep 2026</span></p>
-      <h3>websites that skipped the redesign</h3>
-      <ol class="trail">
-        <li>berkshirehathaway.com</li><li>space jam, 1996</li><li>info.cern.ch</li><li>view source</li><li>oldweb.today</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="27"></span>27 tabs · 1 h 25</p>
-      <p class="ended"><span class="mono">ended</span> on info.cern.ch, clicking through the first website’s plain blue links.</p>
-      <p class="stayed">the oldest pages i opened loaded fastest. the next morning i went back to a client’s homepage and deleted two scripts.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="https://www.berkshirehathaway.com/" target="_blank" rel="noopener noreferrer">berkshire hathaway</a> one of the largest companies in the world, with a homepage made of plain links in a list. it loads before your finger leaves the trackpad.</li>
-          <li><a href="https://www.spacejam.com/1996/" target="_blank" rel="noopener noreferrer">space jam, 1996</a> the studio kept the original movie site online. tables, gifs, a starfield.</li>
-          <li><a href="https://info.cern.ch/" target="_blank" rel="noopener noreferrer">info.cern.ch</a> cern restored the first website in 2013. its subject is the web itself.</li>
-          <li>view source. a lot of people learned html this way: open someone else’s page and read it. i commented this one for that reason.</li>
-          <li><a href="https://oldweb.today/" target="_blank" rel="noopener noreferrer">oldweb.today</a> you open old sites in emulated old browsers. netscape navigator feels like a place you visit.</li>
-        </ol>
-      </details>
-    </article>
-
-    <article class="hole h5" id="hole-013">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 013</span><span>aug 2026</span></p>
-      <h3>art that runs as long as the chain runs</h3>
-      <ol class="trail">
-        <li>autoglyphs</li><li>code in the contract</li><li>terraforms</li><li>hic et nunc goes dark</li><li>teia</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="35"></span>35 tabs · 2 h 40</p>
-      <p class="ended"><span class="mono">ended</span> asking each “onchain” piece one question: where does the image live?</p>
-      <p class="stayed">most “onchain art” stores a link to a file on someone’s server. owning one of the few that don’t feels different, in a way i haven’t pinned down yet.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="https://www.larvalabs.com/autoglyphs" target="_blank" rel="noopener noreferrer">autoglyphs</a> 2019. larva labs put the drawing code inside the contract, so each of the 512 glyphs comes out of ethereum itself.</li>
-          <li>code in the contract. you call a function and get the glyph back as plain text characters, ready to paste anywhere.</li>
-          <li><a href="https://mathcastles.xyz/" target="_blank" rel="noopener noreferrer">terraforms</a> a land-art piece by mathcastles. the contract builds each parcel from chain state, character by character.</li>
-          <li>hic et nunc, november 2021. the founder takes the site down. the contracts keep running underneath.</li>
-          <li><a href="https://teia.art/" target="_blank" rel="noopener noreferrer">teia</a> the community puts a new front end on the same contracts within days. collectors find their pieces where they left them.</li>
-        </ol>
-      </details>
-    </article>
-
-    <article class="hole h6" id="hole-012">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 012</span><span>aug 2026</span></p>
-      <h3>a globe full of radios</h3>
-      <ol class="trail">
-        <li>radio.garden</li><li>a faroese talk show</li><li>numbers stations</li><li>uvb-76</li><li>the conet project</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="22"></span>22 tabs · 3 h 05</p>
-      <p class="ended"><span class="mono">ended</span> at 3 am, listening to a buzz.</p>
-      <p class="stayed">strangers log a buzzing frequency with dates and times, some of them for years, with no answer in sight. i admire that patience, and i know i don’t have it.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="https://radio.garden/" target="_blank" rel="noopener noreferrer">radio.garden</a> spin the globe, land on a live station. i landed in the faroe islands.</li>
-          <li>a faroese talk show. i understood none of it and stayed twenty minutes. the host laughed a lot, which helped.</li>
-          <li><a href="https://priyom.org/" target="_blank" rel="noopener noreferrer">priyom.org</a> volunteers log numbers stations here: voices reading digits over shortwave, with no government willing to explain them.</li>
-          <li><a href="https://en.wikipedia.org/wiki/UVB-76" target="_blank" rel="noopener noreferrer">uvb-76</a> a station on 4625 khz that has sent a short buzz for decades. now and then a voice reads out a few russian words.</li>
-          <li><a href="https://archive.org/details/ird059" target="_blank" rel="noopener noreferrer">the conet project</a> irdial-discs, 1997. four cds of numbers station recordings, free to stream on the internet archive.</li>
-        </ol>
-      </details>
-    </article>
-
-    <article class="hole h7" id="hole-011">
-      <div class="tunnel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="hole-top mono"><span>hole 011</span><span>aug 2026</span></p>
-      <h3>please be patient, this page is under construction</h3>
-      <ol class="trail">
-        <li>under construction gifs</li><li>geocities, 1994</li><li>the 2009 shutdown</li><li>archive team</li><li>one terabyte of kilobyte age</li>
-      </ol>
-      <p class="depth mono"><span class="meter" data-v="26"></span>26 tabs · 2 h 15</p>
-      <p class="ended"><span class="mono">ended</span> on a tumblr bot that publishes a rescued geocities page every twenty minutes.</p>
-      <p class="stayed">thousands of strangers apologised, in blinking gifs, for pages they had not finished. i have a staging server full of pages that deserve the same gif.</p>
-      <details class="steps">
-        <summary>follow the trail</summary>
-        <ol>
-          <li><a href="http://www.textfiles.com/underconstruction/" target="_blank" rel="noopener noreferrer">under construction</a> hundreds of “under construction” gifs saved from geocities. you can read the old neighbourhood in most of the file names.</li>
-          <li><a href="https://en.wikipedia.org/wiki/GeoCities" target="_blank" rel="noopener noreferrer">geocities</a> founded in 1994. from 1995 you could claim a free homepage in a themed neighbourhood, with a street number of your own.</li>
-          <li>october 2009. yahoo, which bought geocities in 1999, closes the us service. the japanese version lasts until 2019.</li>
-          <li><a href="https://wiki.archiveteam.org/index.php/GeoCities" target="_blank" rel="noopener noreferrer">archive team</a> volunteers download as much as they can before the deadline. a year after the shutdown they release it as one torrent, 641 gb compressed.</li>
-          <li><a href="https://blog.geocities.institute/" target="_blank" rel="noopener noreferrer">one terabyte of kilobyte age</a> olia lialina and dragan espenschied dig through the torrent and publish screenshots of the pages, each one shown in a browser from its year.</li>
-        </ol>
-      </details>
-    </article>
-
-  </div>
-</section>
-
-<!-- ============ 02 found & made ============ -->
-<section id="finds" class="sec finds" data-zone="found things">
-  <header class="sec-head">
-    <span class="sec-num mono">02 / depth 300 m</span>
-    <h2 class="scramble">things i like <span class="amp">/</span> things i made</h2>
-    <p class="sec-sub">on the left, strange corners i keep going back to. on the right, small toys i made for this page.</p>
-  </header>
-
-  <div class="finds-cols">
-
-    <div class="win found">
-      <div class="win-bar"><span class="win-title mono">bookmarks.html</span><span class="win-btns" aria-hidden="true"><i></i><i></i><i></i></span></div>
-      <div class="filters" role="group" aria-label="filter the finds">
-        <button type="button" class="filter on" data-f="all" aria-pressed="true">all</button>
-        <button type="button" class="filter" data-f="sites" aria-pressed="false">sites</button>
-        <button type="button" class="filter" data-f="art" aria-pressed="false">art</button>
-        <button type="button" class="filter" data-f="archives" aria-pressed="false">archives</button>
-        <button type="button" class="filter" data-f="onchain" aria-pressed="false">onchain</button>
-        <span class="count mono" id="finds-count"></span>
+  <!-- ─────────────────────────── HERO ─────────────────────────── -->
+  <section class="hero" data-zone id="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <p class="eyebrow reveal">Talent · People · Partnerships</p>
+      <h1 class="hero-title reveal" id="hero-title">
+        <span class="line">Lisa Trotter</span>
+      </h1>
+      <p class="hero-lede reveal">
+        Connecting exceptional people with opportunities across
+        <em>crypto, Web3</em> and emerging technologies.
+      </p>
+      <p class="hero-tags reveal" aria-hidden="true">
+        <span>Talent Acquisition</span><span>People</span><span>Web3</span><span>Venture</span>
+      </p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-primary" href="https://t.me/trotterlisafr" target="_blank" rel="me noopener">
+          Connect on Telegram
+          <span class="btn-ico" aria-hidden="true">↗</span>
+        </a>
+        <a class="btn btn-ghost" href="https://x.com/trotterlisafr" target="_blank" rel="me noopener">
+          View my X profile
+          <span class="btn-ico" aria-hidden="true">↗</span>
+        </a>
       </div>
-      <ul class="finds-list" id="finds-list">
-        <li data-cat="sites"><a href="https://radio.garden/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">radio.garden</span><span class="why">spin a globe, land on a live station somewhere.</span></a></li>
-        <li data-cat="sites"><a href="https://www.window-swap.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">window-swap.com</span><span class="why">a stranger’s window in another city, for as long as you want to look.</span></a></li>
-        <li data-cat="sites"><a href="https://neal.fun/deep-sea/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">neal.fun/deep-sea</span><span class="why">scroll to the bottom of the ocean. i borrowed the depth gauge on this site from it.</span></a></li>
-        <li data-cat="sites"><a href="https://libraryofbabel.info/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">libraryofbabel.info</span><span class="why">each possible page of 3,200 characters. good luck finding a sentence.</span></a></li>
-        <li data-cat="sites"><a href="https://marginalia-search.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">marginalia-search.com</span><span class="why">a search engine for the small, text-heavy web. you get personal pages and old essays in place of shops.</span></a></li>
-        <li data-cat="sites"><a href="https://wiby.me/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">wiby.me</span><span class="why">search results from before pages weighed megabytes.</span></a></li>
-        <li data-cat="sites"><a href="https://theuselessweb.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">theuselessweb.com</span><span class="why">press one button, land on a pointless site. two of my favourite pages came from here.</span></a></li>
-        <li data-cat="sites"><a href="https://www.windows93.net/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">windows93.net</span><span class="why">a fake operating system in a browser tab. it runs better than some real ones i’ve used.</span></a></li>
-        <li data-cat="sites"><a href="https://poolsuite.net/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">poolsuite.net</span><span class="why">a mac os 9 summer in a browser tab.</span></a></li>
-        <li data-cat="sites"><a href="https://www.are.na/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">are.na</span><span class="why">i keep screenshots here of things i don’t understand yet.</span></a></li>
-        <li data-cat="sites"><a href="https://neocities.org/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">neocities.org</span><span class="why">people make personal pages by hand here, in 2026. i find that reassuring.</span></a></li>
-        <li data-cat="sites"><a href="https://zombo.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">zombo.com</span><span class="why">a voice tells you that you can do anything. people have been listening to it since 1999.</span></a></li>
-        <li data-cat="sites"><a href="https://ncase.me/trust/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">ncase.me/trust</span><span class="why">nicky case’s playable guide to the game theory of trust. there is a french translation, and i read that one first.</span></a></li>
-        <li data-cat="sites"><a href="https://tilde.club/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">tilde.club</span><span class="why">paul ford started it in 2014: one shared unix server, and a lot of plain personal pages with a ~ in the address.</span></a></li>
-        <li data-cat="art"><a href="https://www.newrafael.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">newrafael.com</span><span class="why">rafaël rozendaal makes websites as artworks. each one does one thing, and you can watch it for a long time.</span></a></li>
-        <li data-cat="art"><a href="https://wwwwwwwww.jodi.org/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">wwwwwwwww.jodi.org</span><span class="why">nineties net art by jodi that makes your browser look broken. keep clicking.</span></a></li>
-        <li data-cat="art"><a href="http://www.teleportacia.org/war/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">teleportacia.org/war</span><span class="why">olia lialina, 1996. you click through a story, and the frames split as you go.</span></a></li>
-        <li data-cat="art"><a href="http://weavesilk.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">weavesilk.com</span><span class="why">draw with symmetry turned on, and you’ll look better at this than you are.</span></a></li>
-        <li data-cat="art"><a href="https://patatap.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">patatap.com</span><span class="why">press a key, get a sound and a shape.</span></a></li>
-        <li data-cat="art"><a href="https://www.artblocks.io/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">artblocks.io</span><span class="why">the artist’s script draws your piece at mint, so you see it for the first time as its owner.</span></a></li>
-        <li data-cat="archives"><a href="https://www.cameronsworld.net/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">cameronsworld.net</span><span class="why">a collage of rescued geocities scraps. loud and lovely, with a gif in each corner.</span></a></li>
-        <li data-cat="archives"><a href="https://geocities.restorativland.org/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">geocities.restorativland.org</span><span class="why">you can browse geocities by its old neighbourhoods again.</span></a></li>
-        <li data-cat="archives"><a href="https://oldweb.today/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">oldweb.today</span><span class="why">open old sites in emulated old browsers.</span></a></li>
-        <li data-cat="archives"><a href="https://web.archive.org/web/20160110152009/http://savethesounds.info/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">savethesounds.info, archived</span><span class="why">the museum of endangered sounds, through the wayback machine. the live domain sells casino reviews now.</span></a></li>
-        <li data-cat="archives"><a href="https://www.spacejam.com/1996/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">spacejam.com/1996</span><span class="why">warner bros kept the 1996 site online, starfield and all.</span></a></li>
-        <li data-cat="archives"><a href="https://info.cern.ch/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">info.cern.ch</span><span class="why">the first website, restored by cern. plain text, blue links, no wait.</span></a></li>
-        <li data-cat="archives"><a href="https://archive.org/details/ird059" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">archive.org · the conet project</span><span class="why">shortwave numbers stations on four cds, free to stream.</span></a></li>
-        <li data-cat="archives"><a href="https://en.wikipedia.org/wiki/Wikipedia:Unusual_articles" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">wikipedia: unusual articles</span><span class="why">wikipedia’s own list of its strangest pages. dangerous before bed.</span></a></li>
-        <li data-cat="archives"><a href="https://cyber.dabamos.de/88x31/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">cyber.dabamos.de/88x31</span><span class="why">thousands of 88×31 buttons, from the nineties to now. i made the button maker on this page after an evening here.</span></a></li>
-        <li data-cat="archives"><a href="https://blog.geocities.institute/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">blog.geocities.institute</span><span class="why">olia lialina and dragan espenschied’s research blog on the rescued geocities torrent.</span></a></li>
-        <li data-cat="onchain"><a href="https://www.larvalabs.com/autoglyphs" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">autoglyphs</span><span class="why">the contract computes the art, so you need no server to see it.</span></a></li>
-        <li data-cat="onchain"><a href="https://nouns.wtf/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">nouns.wtf</span><span class="why">one noun auctioned each day, with no end date. you can set a watch by it.</span></a></li>
-        <li data-cat="onchain"><a href="https://basepaint.xyz/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">basepaint.xyz</span><span class="why">a shared canvas each day, for whoever shows up with a brush.</span></a></li>
-        <li data-cat="onchain"><a href="https://teia.art/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">teia.art</span><span class="why">the community-run continuation of hic et nunc.</span></a></li>
-        <li data-cat="onchain"><a href="https://farcaster.xyz/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">farcaster.xyz</span><span class="why">a social protocol that registers your account onchain, so any app can find it.</span></a></li>
-        <li data-cat="onchain"><a href="https://mathcastles.xyz/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">mathcastles.xyz</span><span class="why">terraforms: land art rendered from chain state.</span></a></li>
-        <li data-cat="onchain"><a href="https://ordinals.com/" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">ordinals.com</span><span class="why">casey rodarmor’s ordinals: a numbering for satoshis and a standard way to inscribe images, since 2023.</span></a></li>
-        <li data-cat="onchain"><a href="https://bitcoin.org/bitcoin.pdf" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">bitcoin.org/bitcoin.pdf</span><span class="why">the bitcoin whitepaper. nine pages, short enough to finish before lunch.</span></a></li>
-        <li data-cat="onchain"><a href="https://ethereum.github.io/yellowpaper/paper.pdf" target="_blank" rel="noopener noreferrer"><span class="fav"></span><span class="dom">ethereum yellow paper</span><span class="why">gavin wood’s formal specification of ethereum. i follow more of the notation each year.</span></a></li>
+      <p class="hero-note reveal">A personal site — not an official company page.</p>
+    </div>
+    <div class="hero-scroll" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- ─────────────────────────── ABOUT ────────────────────────── -->
+  <section class="section" data-zone id="about" aria-labelledby="about-title">
+    <div class="wrap grid-2">
+      <div class="col-head">
+        <p class="kicker reveal">01 — About</p>
+        <h2 class="section-title reveal" id="about-title">A little about me.</h2>
+      </div>
+      <div class="col-body prose">
+        <p class="reveal">
+          I'm Lisa, from France. My work revolves around people, emerging technologies,
+          and connecting talent with opportunities in ambitious teams.
+        </p>
+        <p class="reveal">
+          I came to this through building on the web and reading the fine print — I still
+          read the contracts and the design docs, and I tend to have one more question.
+          In crypto and Web3 that curiosity matters: the interesting part isn't the price,
+          it's who changes their behaviour once real work, and real money, are on the line.
+        </p>
+        <p class="reveal">
+          I spend my time around builders, researchers and specialists across the ecosystem,
+          and I like making the introductions that turn a conversation into something real.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────── WHAT I DO ──────────────────────── -->
+  <section class="section section-alt" data-zone id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="col-head wide">
+        <p class="kicker reveal">02 — Focus</p>
+        <h2 class="section-title reveal" id="work-title">People. Talent. Opportunities.</h2>
+      </div>
+      <ol class="cards" role="list">
+        <li class="card reveal">
+          <span class="card-num" aria-hidden="true">01</span>
+          <h3 class="card-title">Talent Discovery</h3>
+          <p>Finding and connecting with professionals across technical and emerging-technology fields.</p>
+        </li>
+        <li class="card reveal">
+          <span class="card-num" aria-hidden="true">02</span>
+          <h3 class="card-title">Talent Acquisition</h3>
+          <p>Building relationships with potential candidates and exploring where the fit is genuine.</p>
+        </li>
+        <li class="card reveal">
+          <span class="card-num" aria-hidden="true">03</span>
+          <h3 class="card-title">Professional Networking</h3>
+          <p>Staying close to builders, researchers and developers across the Web3 ecosystem.</p>
+        </li>
+        <li class="card reveal">
+          <span class="card-num" aria-hidden="true">04</span>
+          <h3 class="card-title">Partnerships &amp; Collaboration</h3>
+          <p>Opening the first conversations around relevant roles and collaborations.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ──────────────────────── ECOSYSTEMS ──────────────────────── -->
+  <section class="section" data-zone id="ecosystems" aria-labelledby="eco-title">
+    <div class="wrap">
+      <div class="col-head wide">
+        <p class="kicker reveal">03 — Ecosystems</p>
+        <h2 class="section-title reveal" id="eco-title">The ecosystems I work around.</h2>
+      </div>
+      <ul class="eco" role="list">
+        <li class="eco-row reveal">
+          <h3>Blockchain &amp; Web3</h3>
+          <p>Protocols, L2s and the infrastructure the rest of the space is built on.</p>
+        </li>
+        <li class="eco-row reveal">
+          <h3>DeFi &amp; Crypto Infrastructure</h3>
+          <p>The rails for on-chain finance — and the teams who keep them running.</p>
+        </li>
+        <li class="eco-row reveal">
+          <h3>Engineering &amp; Product</h3>
+          <p>The people who ship: from protocol engineers to product and design.</p>
+        </li>
+        <li class="eco-row reveal">
+          <h3>Research &amp; Analytics</h3>
+          <p>Where the hard questions get asked before capital moves.</p>
+        </li>
+        <li class="eco-row reveal">
+          <h3>Venture Capital</h3>
+          <p>Early teams, and the operators who help them grow.</p>
+        </li>
+        <li class="eco-row reveal">
+          <h3>Emerging Technologies</h3>
+          <p>Robotics, AI and deep tech — the frontier next to crypto.</p>
+        </li>
       </ul>
     </div>
+  </section>
 
-    <div class="made">
+  <!-- ──────────────── EXPERIENCE (Stage 2 placeholder) ─────────────
+       This component is intentionally content-ready but unpopulated.
+       A role entry can be added once the affiliation is verifiable.
+       Template — copy, fill, and remove the empty-state note:
 
-      <div class="toy toy-glyph">
-        <p class="toy-head mono"><span>made</span> daily glyph</p>
-        <p class="toy-sub">i seed each day’s glyph with the date, counting from my first day on x. an homage to autoglyphs, without the contract.</p>
-        <pre class="glyph" id="glyph" aria-label="today's glyph"></pre>
-        <div class="toy-row">
-          <button type="button" class="tbtn" data-glyph="-1" aria-label="previous day">←</button>
-          <span class="mono glyph-label" id="glyph-label">glyph</span>
-          <button type="button" class="tbtn" data-glyph="1" aria-label="next day">→</button>
-          <button type="button" class="tbtn" id="glyph-copy">copy</button>
-        </div>
+       <li class="xp-item reveal">
+         <div class="xp-when">2026 — Present</div>
+         <div class="xp-what">
+           <h3 class="xp-role">Role title</h3>
+           <p class="xp-org">Organisation
+             <a href="https://…" target="_blank" rel="noopener">↗</a>
+           </p>
+           <p class="xp-desc">One line of context, written plainly.</p>
+         </div>
+       </li>
+
+       Do not add corporate logos, verification badges, or language that
+       presents this personal site as an official company page.
+  ─────────────────────────────────────────────────────────────── -->
+  <section class="section section-alt" data-zone id="experience" aria-labelledby="xp-title">
+    <div class="wrap grid-2">
+      <div class="col-head">
+        <p class="kicker reveal">04 — Experience</p>
+        <h2 class="section-title reveal" id="xp-title">Professional experience.</h2>
       </div>
-
-      <div class="toy toy-roulette">
-        <p class="toy-head mono"><span>made</span> rabbit hole roulette</p>
-        <div class="slot" id="slot" aria-live="polite"><span class="slot-text mono">press the button</span></div>
-        <div class="toy-row">
-          <button type="button" class="tbtn big magnetic" id="spin">take me somewhere strange</button>
-          <a class="tbtn go" id="slot-go" href="#" target="_blank" rel="noopener noreferrer" hidden>go ↗</a>
-        </div>
+      <div class="col-body">
+        <ol class="xp" role="list">
+          <!-- role entries go here -->
+          <li class="xp-empty reveal" id="xp-empty">
+            <p>Experience details are being finalised and will be listed here.</p>
+            <p class="xp-empty-sub">In the meantime, the best way to reach me is directly.</p>
+            <a class="link-arrow" href="#contact">Get in touch<span aria-hidden="true">→</span></a>
+          </li>
+        </ol>
       </div>
-
-      <div class="toy toy-machine">
-        <p class="toy-head mono"><span>made</span> bubble machine</p>
-        <p class="toy-sub">tune the bubbles that follow your cursor, or press <kbd>b</kbd> anywhere on the page.</p>
-        <label class="range"><span class="mono">size</span><input type="range" id="bm-size" min="0.4" max="2.2" step="0.1" value="1"></label>
-        <label class="range"><span class="mono">wind</span><input type="range" id="bm-wind" min="-2" max="2" step="0.1" value="0"></label>
-        <label class="range"><span class="mono">amount</span><input type="range" id="bm-amount" min="0.2" max="2.5" step="0.1" value="1"></label>
-        <div class="toy-row palettes" role="group" aria-label="bubble film">
-          <button type="button" class="tbtn pal on" data-pal="film" aria-pressed="true">soap film</button>
-          <button type="button" class="tbtn pal" data-pal="dusk" aria-pressed="false">paris dusk</button>
-          <button type="button" class="tbtn pal" data-pal="mono" aria-pressed="false">mono</button>
-          <button type="button" class="tbtn blow magnetic" id="bm-blow">blow ✦</button>
-        </div>
-      </div>
-
-      <div class="toy toy-button">
-        <p class="toy-head mono"><span>made</span> 88×31 button maker</p>
-        <p class="toy-sub">personal sites used to swap these little badges. make one for yours.</p>
-        <div class="toy-row">
-          <input class="btn-input mono" id="btn-text" type="text" maxlength="18" value="best viewed curious" aria-label="button text">
-          <canvas id="btn-canvas" width="88" height="31" aria-label="your 88 by 31 button"></canvas>
-        </div>
-        <div class="toy-row">
-          <button type="button" class="tbtn" id="btn-style">new colours</button>
-          <a class="tbtn" id="btn-save" href="#" download="my-88x31.png">save png</a>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ 03 archive ============ -->
-<section id="archive" class="sec archive" data-zone="the archive">
-  <header class="sec-head">
-    <span class="sec-num mono">03 / depth 480 m</span>
-    <h2 class="scramble">visual archive</h2>
-    <p class="sec-sub">small generative pieces. you get a new set on each visit. click one to reseed it, and save the ones you like.</p>
-  </header>
-
-  <div class="archive-grid">
-    <figure class="spec sp1" data-algo="desordres"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 001 · (des)ordres, after molnár</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp2" data-algo="dusk"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 002 · dithered dusk</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp3" data-algo="flow"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 003 · flow field</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp4" data-algo="truchet"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 004 · truchet</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp5" data-algo="soap"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 005 · soap study</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp6" data-algo="contour"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 006 · map of nowhere</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp7" data-algo="blocks"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 007 · block study</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp8" data-algo="moire"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 008 · moiré</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-    <figure class="spec sp9" data-algo="glyphs"><div class="spec-frame"><canvas></canvas></div><figcaption><span class="mono">specimen 009 · glyph weather</span><span class="mono seed"></span><button type="button" class="save mono">save</button></figcaption></figure>
-  </div>
-</section>
-
-<!-- ============ 04 onchain ============ -->
-<section id="onchain" class="sec onchain" data-zone="onchain">
-  <header class="sec-head">
-    <span class="sec-num mono">04 / depth 640 m</span>
-    <h2 class="scramble">onchain, without the prices</h2>
-    <p class="sec-sub">i leave the charts to other people. these are the ideas i keep returning to, each with the part i can’t settle yet.</p>
-  </header>
-
-  <div class="cards">
-    <article class="card">
-      <p class="card-top mono"><span>art</span><span>2019</span></p>
-      <h3>autoglyphs</h3>
-      <p class="yes"><span class="mono">interesting because</span> you ask the contract and it returns the image as text. to see a glyph, you need ethereum and a text box.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i suspect people in fifty years will look at thumbnails and skip the code.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>culture</span><span>2021</span></p>
-      <h3>nouns</h3>
-      <p class="yes"><span class="mono">interesting because</span> one auction each day, with no end date. the treasury pays for strange public things, glasses and short films among them.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i’d like to see the ritual in year ten, once the novelty has worn off.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>social</span><span>protocol</span></p>
-      <h3>farcaster</h3>
-      <p class="yes"><span class="mono">interesting because</span> your account id sits in an onchain registry, and a shared network stores your posts and follows. you can switch apps and keep both.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i’d like numbers on how many people switch apps once they can. my guess is few, as long as their friends stay put.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>identity</span><span>ens</span></p>
-      <h3>names you own</h3>
-      <p class="yes"><span class="mono">interesting because</span> one name can point to a wallet and a website. you hold it the way you hold a token.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i haven’t decided how i feel about an identity you can lose by forgetting a renewal.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>wallets</span><span>0x…dEaD</span></p>
-      <h3>burn addresses</h3>
-      <p class="yes"><span class="mono">interesting because</span> you can watch the balance grow on a block explorer, and no one holds a key to spend it.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i can’t decide if a burn is a statement or accounting with better branding.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>bitcoin</span><span>2009</span></p>
-      <h3>the genesis block</h3>
-      <p class="yes"><span class="mono">interesting because</span> it quotes a headline from the times of 3 january 2009, and its first 50 coins can’t be spent. people keep sending it small amounts anyway.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i can’t tell if tipping an address that has never spent a coin is devotion or a guestbook with fees.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>art</span><span>base</span></p>
-      <h3>basepaint</h3>
-      <p class="yes"><span class="mono">interesting because</span> whoever shows up paints the day’s canvas, collectors mint it as one piece, and the painters get a share.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> i’m curious what happens to the pictures once painters start optimising for the payout.</p>
-    </article>
-    <article class="card">
-      <p class="card-top mono"><span>archive</span><span>2023</span></p>
-      <h3>inscriptions</h3>
-      <p class="yes"><span class="mono">interesting because</span> casey rodarmor’s ordinals gave images in bitcoin blocks a standard format and a number each. you can pull a jpeg out of the same ledger that records payments.</p>
-      <p class="hmm"><span class="mono">not sure yet</span> every node that keeps the full history stores those images for good. i haven’t seen a fair answer on who should carry that cost.</p>
-    </article>
-  </div>
-</section>
-
-<!-- ============ 05 notes ============ -->
-<section id="notes" class="sec notes" data-zone="field notes">
-  <header class="sec-head">
-    <span class="sec-num mono">05 / depth 800 m</span>
-    <h2 class="scramble">notes from the internet</h2>
-    <p class="sec-sub">short field notes. i write them the day i find the thing, before i forget the details.</p>
-  </header>
-
-  <div class="filters note-filters" role="group" aria-label="filter the notes">
-    <button type="button" class="filter on" data-n="all" aria-pressed="true">all</button>
-    <button type="button" class="filter" data-n="found" aria-pressed="false">things i found this week</button>
-    <button type="button" class="filter" data-n="onchain" aria-pressed="false">onchain notes</button>
-    <button type="button" class="filter" data-n="holes" aria-pressed="false">internet rabbit holes</button>
-  </div>
-
-  <ol class="notes-list">
-    <li class="note" data-n="onchain" id="n-0922"><time class="mono" datetime="2026-09-22">22·09</time><p class="note-tag mono">onchain notes</p><p>i reread the opening pages of the ethereum yellow paper. i follow more of the notation than i did last year, and i look up fewer greek letters.</p></li>
-    <li class="note" data-n="found" id="n-0921"><time class="mono" datetime="2026-09-21">21·09</time><p class="note-tag mono">things i found this week</p><p>radio.garden again. this time a station in the azores playing accordion music. i kept it on while i fixed a client’s footer.</p></li>
-    <li class="note" data-n="found" id="n-0920"><time class="mono" datetime="2026-09-20">20·09</time><p class="note-tag mono">things i found this week</p><p>i scrolled neal.fun’s deep sea page all the way down during a coffee break. the coffee went cold somewhere near the bottom.</p></li>
-    <li class="note" data-n="onchain" id="n-0919"><time class="mono" datetime="2026-09-19">19·09</time><p class="note-tag mono">onchain notes</p><p>people call yves klein’s 1959 zones the first nft. i read them as the first burn address: buyers who wanted the full work burned the receipt, and klein threw half their gold into the seine.</p></li>
-    <li class="note" data-n="holes" id="n-0918"><time class="mono" datetime="2026-09-18">18·09</time><p class="note-tag mono">internet rabbit holes</p><p>started at a 1996 movie website, ended at the first website ever. both load faster than my bank’s login page.</p></li>
-    <li class="note" data-n="holes" id="n-0917"><time class="mono" datetime="2026-09-17">17·09</time><p class="note-tag mono">internet rabbit holes</p><p>an evening on 88×31 buttons. one collection holds thousands of them, from the nineties to now. i went to bed with a button maker half written.</p></li>
-    <li class="note" data-n="onchain" id="n-0916"><time class="mono" datetime="2026-09-16">16·09</time><p class="note-tag mono">onchain notes</p><p>before i look twice at an “onchain” piece, i check where the image lives. in most cases the answer is a server that somebody has to keep paying for.</p></li>
-    <li class="note" data-n="onchain" id="n-0915"><time class="mono" datetime="2026-09-15">15·09</time><p class="note-tag mono">onchain notes</p><p>satoshi sent the first bitcoin transaction to hal finney in january 2009, ten coins as a test. i like that the first payment went between two people on the same cryptography mailing list.</p></li>
-    <li class="note" data-n="found" id="n-0914"><time class="mono" datetime="2026-09-14">14·09</time><p class="note-tag mono">things i found this week</p><p>the museum of endangered sounds: dial-up, a floppy drive, the nokia ringtone. its domain sells casino reviews now, so i listened through the wayback machine.</p></li>
-    <li class="note" data-n="found" id="n-0913"><time class="mono" datetime="2026-09-13">13·09</time><p class="note-tag mono">things i found this week</p><p>rafaël rozendaal sells websites as artworks, and the collector’s name goes in the page title. i read browser tabs with more care now.</p></li>
-    <li class="note" data-n="holes" id="n-0912"><time class="mono" datetime="2026-09-12">12·09</time><p class="note-tag mono">internet rabbit holes</p><p>numbers stations. one shortwave frequency has carried a buzz for decades, and a small community logs each change with a date and a time. i keep going back for the logbooks.</p></li>
-    <li class="note" data-n="holes" id="n-0911"><time class="mono" datetime="2026-09-11">11·09</time><p class="note-tag mono">internet rabbit holes</p><p>i followed wikipedia’s unusual articles list to the emu war of 1932: soldiers with lewis guns against emus in western australia. the emus split into small groups, and the army gave up.</p></li>
-    <li class="note" data-n="onchain" id="n-0910"><time class="mono" datetime="2026-09-10">10·09</time><p class="note-tag mono">onchain notes</p><p>i read the early posts on another new social protocol. a test, then a complaint about the old platform, then the same complaint in french.</p></li>
-    <li class="note" data-n="onchain" id="n-0909"><time class="mono" datetime="2026-09-09">09·09</time><p class="note-tag mono">onchain notes</p><p>i scrolled the token list of the 0x…dEaD address on etherscan. hundreds of projects i’d never heard of sent tokens there to show their supply went down.</p></li>
-    <li class="note" data-n="found" id="n-0908"><time class="mono" datetime="2026-09-08">08·09</time><p class="note-tag mono">things i found this week</p><p>on window-swap i got a rainy kitchen, lisbon i think, and watched it for the length of a coffee.</p></li>
-    <li class="note" data-n="holes" id="n-0906"><time class="mono" datetime="2026-09-06">06·09</time><p class="note-tag mono">internet rabbit holes</p><p>vera molnár ran algorithms by hand from 1959 and got time on a computer in 1968. i tried one of her rules on graph paper at lunch and lost patience at row six.</p></li>
-    <li class="note" data-n="found" id="n-0905"><time class="mono" datetime="2026-09-05">05·09</time><p class="note-tag mono">things i found this week</p><p>poolsuite.net in a background tab: summer mixes in a fake mac os 9, and a grey sky outside my window.</p></li>
-    <li class="note" data-n="onchain" id="n-0904"><time class="mono" datetime="2026-09-04">04·09</time><p class="note-tag mono">onchain notes</p><p>the bitcoin genesis block quotes a newspaper headline, and each block since links back to it through the chain. i like that satoshi opened a payment system with a citation.</p></li>
-    <li class="note" data-n="found" id="n-0902"><time class="mono" datetime="2026-09-02">02·09</time><p class="note-tag mono">things i found this week</p><p>the library of babel contains each possible page of 3,200 characters. i searched for my name and found it, surrounded by nonsense. i’ve seen search results like that.</p></li>
-    <li class="note" data-n="holes" id="n-0830"><time class="mono" datetime="2026-08-30">30·08</time><p class="note-tag mono">internet rabbit holes</p><p>cameron’s world, a collage of old geocities pages. i lost count of the “under construction” signs on the first screen.</p></li>
-  </ol>
-</section>
-
-<!-- ============ 06 about ============ -->
-<section id="about" class="sec about" data-zone="bedrock">
-  <header class="sec-head">
-    <span class="sec-num mono">06 / depth 960 m</span>
-    <h2 class="scramble">about</h2>
-  </header>
-
-  <div class="about-grid">
-    <figure class="portrait">
-      <canvas id="portrait" aria-label="self-portrait as a soap bubble"></canvas>
-      <figcaption class="mono">self-portrait as a soap bubble, 2026. the reflection is my window.</figcaption>
-    </figure>
-    <div class="about-text">
-      <p class="about-lead">i’m lisa, from france. i build websites for clients during the day.</p>
-      <p><i>devtrotter</i> is dev plus globe-trotter, though most of the trotting happens between tabs.</p>
-      <p>i’m curious about crypto, digital art and the stranger corners of the internet. i read the fine print, and i tend to have one more question.</p>
-      <p>client work means i check a site’s load time before i look at the design. the old sites on this page pass that test with ease.</p>
-      <p>with crypto, i read the contracts and the design docs and leave the price talk to others. my standing question for a new project: who changes their behaviour once real money is on the line?</p>
-      <p>i keep my finds here and add to the page when a tab survives a full week. if you know a strange corner i haven’t seen, send me the link.</p>
-      <p class="colophon mono">colophon · i wrote the html, css and a little javascript by hand. the page sets no cookies. when it loads, i log the visit: time, page, country, region and city, network, browser family, language, where you came from, how long the page stayed open, how far you scrolled and which sections you saw. no ip addresses. every night i delete entries older than 90 days, and cloudflare, which hosts the site, keeps database backups for up to 30 days. fonts come from this server: bricolage grotesque, instrument serif, space mono, silkscreen. the small bubbles are canvas, and the big one is a webgl shader. the source is on <a href="https://github.com/LisaDevtrotter/lisatrotter.xyz" target="_blank" rel="noopener noreferrer">github</a>.</p>
+  <!-- ──────────────────────────── CONTACT ─────────────────────── -->
+  <section class="section section-contact" data-zone id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="col-head wide">
+        <p class="kicker reveal">05 — Contact</p>
+        <h2 class="section-title reveal" id="contact-title">Let's start a conversation.</h2>
+        <p class="contact-lede reveal">
+          Whether you're exploring opportunities, working on something interesting,
+          or simply want to connect, feel free to reach out.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card contact-primary reveal" href="https://t.me/trotterlisafr" target="_blank" rel="me noopener">
+          <span class="contact-chan">Telegram</span>
+          <span class="contact-handle">@trotterlisafr</span>
+          <span class="contact-meta">Best way to reach me <span aria-hidden="true">↗</span></span>
+        </a>
+        <a class="contact-card reveal" href="https://x.com/trotterlisafr" target="_blank" rel="me noopener">
+          <span class="contact-chan">X / Twitter</span>
+          <span class="contact-handle">@trotterlisafr</span>
+          <span class="contact-meta">Follow &amp; DM <span aria-hidden="true">↗</span></span>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
 </main>
 
-<!-- ============ sea floor ============ -->
-<footer class="foot" data-zone="the sea floor">
-  <div class="foot-hi">
-    <p class="mono foot-kicker">you reached the sea floor</p>
-    <h2 class="foot-title">found a strange corner?<br><em class="iri">tell me.</em></h2>
-    <ul class="links">
-      <li><a href="https://x.com/devtrotter_fr" target="_blank" rel="me noopener noreferrer"><span class="mono">x</span>@devtrotter_fr<span class="arr">↗</span></a></li>
-      <li><a href="https://github.com/LisaDevtrotter" target="_blank" rel="me noopener noreferrer"><span class="mono">github</span>LisaDevtrotter<span class="arr">↗</span></a></li>
-      <!-- link:farcaster -->
-      <!-- link:email -->
-    </ul>
+<!-- ──────────────────────────── FOOTER ──────────────────────────── -->
+<footer class="foot" data-zone id="foot">
+  <div class="wrap foot-inner">
+    <div class="foot-id">
+      <p class="foot-name">Lisa Trotter</p>
+      <p class="foot-role">Talent &amp; Partnerships · Crypto &amp; Web3</p>
+    </div>
+    <nav class="foot-links" aria-label="Elsewhere">
+      <a href="https://t.me/trotterlisafr" target="_blank" rel="me noopener">Telegram ↗</a>
+      <a href="https://x.com/trotterlisafr" target="_blank" rel="me noopener">X ↗</a>
+      <a href="https://github.com/LisaDevtrotter" target="_blank" rel="me noopener">GitHub ↗</a>
+    </nav>
   </div>
-
-  <div class="foot-grid">
-    <div class="guestbook">
-      <p class="mono foot-h">guestbook</p>
-      <p class="gb-sub">a guestbook only you can read. your notes stay in this browser, on this device.</p>
-      <form id="gb-form" class="gb-form">
-        <label class="sr" for="gb-text">your note</label>
-        <input id="gb-text" class="mono" type="text" maxlength="140" placeholder="leave a note for future you" autocomplete="off">
-        <button type="submit" class="tbtn">sign</button>
-      </form>
-      <ol class="gb-list mono" id="gb-list"></ol>
-    </div>
-
-    <div class="ring-web">
-      <p class="mono foot-h">the rabbit ring</p>
-      <p class="webring mono"><a href="#" id="ring-prev" target="_blank" rel="noopener noreferrer">← prev</a><span>✦</span><a href="#" id="ring-rand" target="_blank" rel="noopener noreferrer">random</a><span>✦</span><a href="#" id="ring-next" target="_blank" rel="noopener noreferrer">next →</a></p>
-      <p class="mono foot-h">bubbles you popped</p>
-      <p class="odometer mono" id="odometer" aria-live="polite">000000</p>
-    </div>
-
-    <div class="badges" aria-label="badges">
-      <span class="b88 b-a">no cookies</span>
-      <span class="b88 b-b">html by hand</span>
-      <span class="b88 b-c">lowercase ok</span>
-      <span class="b88 b-d">best viewed curious</span>
-      <span class="b88 b-e">powered by tabs</span>
-      <span class="b88 b-f">made in france</span>
-    </div>
+  <div class="wrap colophon">
+    <p>
+      This is my personal website — <strong>lisatrotter.xyz</strong> — not the official site of
+      any company. I wrote the HTML, CSS and a little JavaScript by hand. The page sets no cookies.
+      When it loads I keep a light visit log — time, page, country, where you came from, and how long
+      the page stayed open — with no IP addresses and nothing that identifies you. Entries older than
+      90 days are deleted each night. Fonts are served from this site: Bricolage Grotesque and
+      Instrument Serif. The source is <a href="https://github.com/LisaDevtrotter/lisatrotter.xyz" target="_blank" rel="noopener">on GitHub</a>.
+    </p>
+    <p class="copy">© <span id="year">2026</span> Lisa Trotter · No cookies, a small visit log.</p>
   </div>
-
-  <p class="fine mono">© 2026 lisa · devtrotter · last updated 23·09·2026 · no cookies, a small <a href="#about">visit log</a> · press <kbd>?</kbd> for secrets</p>
 </footer>
 
-<div class="status mono" id="status" aria-hidden="true"><span class="status-dot"></span><span id="status-text">document: done</span></div>
-
-<div class="gauge" id="gauge" aria-hidden="true">
-  <span class="gauge-line"><span class="gauge-fill" id="gauge-fill"></span></span>
-  <span class="gauge-read mono"><b id="gauge-m">0</b> m<br><span id="gauge-zone">the surface web</span></span>
-</div>
-
-<div class="peek" id="peek" aria-hidden="true">
-  <div class="peek-bar mono"><span id="peek-dom">site</span><span class="win-btns"><i></i><i></i><i></i></span></div>
-  <canvas id="peek-canvas" width="240" height="120"></canvas>
-</div>
-
-<div class="toast mono" id="toast" role="status" aria-live="polite"></div>
-
-<dialog class="keys" id="keys">
-  <p class="mono keys-h">secrets</p>
-  <ul>
-    <li><kbd>b</kbd> blow bubbles at the cursor</li>
-    <li><kbd>r</kbd> open a random strange corner</li>
-    <li><kbd>t</kbd> day or night</li>
-    <li><kbd>g</kbd> show the grid, and the spots where i broke it</li>
-    <li><kbd>↑↑↓↓←→←→ b a</kbd> weather warning</li>
-    <li>click the big bubble. it grows back.</li>
-  </ul>
-  <form method="dialog"><button class="tbtn" type="submit">close</button></form>
-</dialog>
-
-<noscript><p class="noscript mono">without javascript you lose the bubbles. you keep the text, the links and the holes.</p></noscript>
 </body>
 </html>
